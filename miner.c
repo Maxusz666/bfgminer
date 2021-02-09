@@ -3762,10 +3762,6 @@ static int statusy;
 static int devsummaryYOffset;
 static int total_lines;
 #endif
-#ifdef USE_OPENCL
-struct cgpu_info gpus[MAX_GPUDEVICES]; /* Maximum number apparently possible */
-#endif
-struct cgpu_info *cpus;
 
 bool _bfg_console_cancel_disabled;
 int _bfg_console_prev_cancelstate;
@@ -11958,8 +11954,10 @@ void _bfg_clean_up(bool restarting)
 			print_summary();
 	}
 
+#ifdef USE_CPUMINING
 	if (opt_n_threads > 0)
 		free(cpus);
+#endif
 
 	curl_global_cleanup();
 	
